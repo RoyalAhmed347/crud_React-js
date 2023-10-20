@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Header from "./Compunent/Header";
+import InputForm from "./Compunent/inputForm";
+import DataTable from "./Compunent/DataTable";
 
-function App() {
+const App = () => {
+  const [items, setItems] = useState([]);
+  const getData = (iData) => {
+    setItems((preData) => {
+      return [...preData, iData];
+    });
+  };
+  const getDelItme = (id) => {
+    setItems((preData) => {
+      return preData.filter((ele, ind) => {
+        return id !== ind;
+      });
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <InputForm getData={getData} />
+      <DataTable items={items} getDelItme={getDelItme} />
+    </>
   );
-}
+};
 
 export default App;
